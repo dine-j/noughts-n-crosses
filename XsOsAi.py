@@ -1,4 +1,7 @@
 from abc import ABCMeta, abstractmethod
+from random import randint
+
+from Board import Board
 
 class Ai:
     __metaclass__ = ABCMeta
@@ -17,8 +20,12 @@ class RandomAi(Ai):
         super(self, game, player_type)
         
     def play(self):
-        
-   
+        x = randint(0,2)
+        y = randint(0,2)
+        while !self.game.checkEmptySquare((x, y)):
+            x = randint(0,2)
+            y = randint(0,2)
+        self.game.setSquare(self.player_type, (x, y))
 
 class PerfectAi(Ai):
     

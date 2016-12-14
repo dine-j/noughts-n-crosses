@@ -24,6 +24,9 @@ class Board:
                 if self.matrix[d] != last_piece:
                     return false
         return true
+    
+    def checkSquare(self, (x, y)):
+        return if self.matrix[x][y] != ' '
         
     def __str__(self):
         string = ""
