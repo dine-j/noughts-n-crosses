@@ -16,6 +16,7 @@ def main():
         
     if player == 'x':
         ai = AiGenerator(game, 'o', difficulty)
+        print("AI will play o")
     else:
         ai = AiGenerator(game, 'x', difficulty)
         ai.play()
@@ -29,6 +30,7 @@ def main():
             break
         ai.play()
         print game
+        print game.last_move
         if game.checkState():
             break
         

@@ -61,7 +61,10 @@ class Board:
         
         return False
     
-    def checkEmptySquare(self, (x, y)):
+    def isCorner(self, (x,y)):
+        return (x,y) == (0,0) or (x,y) == (0, self.size - 1) or (x,y) == (self.size - 1, 0) or (x,y) == (self.size - 1, self.size - 1)
+    
+    def isEmpty(self, (x,y)):
         return self.matrix[x][y] == ' '
         
     def __str__(self):
