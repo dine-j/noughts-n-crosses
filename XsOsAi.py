@@ -55,11 +55,51 @@ class PerfectAi(Ai):
         return False
     
     def blockOpponent(self):
-        (x,y) = self.blockOpponent()
-        if (x,y) != (-1,-1):
+        empty = ' '
+        count = 0
+        (x,y) = (-1,-1)
+        
+        for col in range(self.game.size):
+            square = self.game.matrix[last_move[0]][col]
+            if square != empty or square != player_type:
+                count += 1
+            if square == empty:
+                (x,y) = (last_move[0],col)
+        if count == 2 and (xx,y) != (-1,-1):
             self.game.setSquare(self.player_type, (x,y))
             self.first_move = False
             return True
+        
+        count = 0
+        (x,y) = (-1,-1)
+        
+        for row in range(self.game.size):
+            square = self.game.matrix[row][last_move[1]]
+            if square != empty or square != player_type:
+                count += 1
+            if square == empty:
+                (x,y) = (row,last_move[1])
+        if count == 2 and (xx,y) != (-1,-1):
+            self.game.setSquare(self.player_type, (x,y))
+            self.first_move = False
+            return True
+                
+        count = 0
+        (x,y) = (-1,-1)
+        
+        if last_move[0] == last_move[1]:
+            for d in range(self.game.size):
+                square = self.game.matrix[d][d]
+                if square != empty or square != player_type:
+                    count += 1
+                if square == empty:
+                    (x,y) = (d,d)
+                    
+            if count == 2 and (xx,y) != (-1,-1):
+                self.game.setSquare(self.player_type, (x,y))
+                self.first_move = False
+            return True
+
         return False
     
     def playCenter(self):
