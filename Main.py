@@ -24,6 +24,9 @@ def main():
     while True:
         player_move = (input("\nx? "), input("\ny? "))
         game.setSquare(player, player_move)
+        print game
+        if game.checkState():
+            break
         ai.play()
         print game
         if game.checkState():

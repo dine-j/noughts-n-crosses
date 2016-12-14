@@ -14,17 +14,52 @@ class Board:
         self.last_piece = piece
         
     def checkState(self):
+        win = True
         for col in range(self.size):
             if self.matrix[self.last_move[0]][col] != self.last_piece:
-                return False
+                win = False
+        if win:
+            return True
+        
         for row in range(self.size):
             if self.matrix[row][self.last_move[1]] != self.last_piece:
-                return False
+                win = False
+        if win:
+            return True
+        
         if self.last_move[0] == self.last_move[1]:
             for d in range(self.size):
                 if self.matrix[d][d] != self.last_piece:
-                    return False
-        return True
+                    win = False
+                    
+        if self.checkDiagonal():
+            return True
+        return False
+    
+    def checkDiagonal(self):
+        win = True
+        # top-left to bottom-right
+        for d in range(self.size):
+            if self.matrix[d][d] != self.last_piece:
+                win = False
+        
+        if win:
+            return True
+        win = True
+        
+        # bottom-left to top-right
+        x = self.size - 1
+        y = 0
+        while y < self.size:
+            if self.matrix[x][y] != self.last_piece:
+                win = False
+            x -= 1
+            y += 1
+        
+        if win:
+            return True
+        
+        return False
     
     def checkEmptySquare(self, (x, y)):
         return self.matrix[x][y] == ' '
