@@ -6,6 +6,7 @@ class Board:
                        [' ', ' ', ' '] ]
         self.last_move = (-1, -1)
         self.last_piece = ' '
+        self.size = 3
     
     def setSquare(self, piece, (x, y)):
         self.matrix[x][y] = piece
@@ -21,12 +22,12 @@ class Board:
                 return false
         if last_move[0] == last_move[1]:
             for d in range(3):
-                if self.matrix[d] != last_piece:
+                if self.matrix[d][d] != last_piece:
                     return false
         return true
     
-    def checkSquare(self, (x, y)):
-        return if self.matrix[x][y] != ' '
+    def checkEmptySquare(self, (x, y)):
+        return if self.matrix[x][y] == ' '
         
     def __str__(self):
         string = ""
