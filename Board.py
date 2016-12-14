@@ -15,19 +15,19 @@ class Board:
         
     def checkState(self):
         for col in range(self.size):
-            if self.matrix[last_move[0]][col] != last_piece:
+            if self.matrix[self.last_move[0]][col] != self.last_piece:
                 return False
         for row in range(self.size):
-            if self.matrix[row][last_move[1]] != last_piece:
+            if self.matrix[row][self.last_move[1]] != self.last_piece:
                 return False
-        if last_move[0] == last_move[1]:
+        if self.last_move[0] == self.last_move[1]:
             for d in range(self.size):
-                if self.matrix[d][d] != last_piece:
+                if self.matrix[d][d] != self.last_piece:
                     return False
         return True
     
     def checkEmptySquare(self, (x, y)):
-        return if self.matrix[x][y] == ' '
+        return self.matrix[x][y] == ' '
         
     def __str__(self):
         string = ""

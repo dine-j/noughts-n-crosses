@@ -17,12 +17,12 @@ class Ai:
 class RandomAi(Ai):
     
     def __init__(self, game, player_type):
-        super(self, game, player_type)
+        super(RandomAi, self).__init__(game, player_type)
         
     def play(self):
         x = randint(0,2)
         y = randint(0,2)
-        while !self.game.checkEmptySquare((x, y)):
+        while not self.game.checkEmptySquare((x, y)):
             x = randint(0,2)
             y = randint(0,2)
         self.game.setSquare(self.player_type, (x, y))
@@ -60,11 +60,11 @@ class PerfectAi(Ai):
         (x,y) = (-1,-1)
         
         for col in range(self.game.size):
-            square = self.game.matrix[last_move[0]][col]
-            if square != empty or square != player_type:
+            square = self.game.matrix[self.game.last_move[0]][col]
+            if square != empty or square != self.player_type:
                 count += 1
             if square == empty:
-                (x,y) = (last_move[0],col)
+                (x,y) = (self.game.last_move[0],col)
         if count == 2 and (xx,y) != (-1,-1):
             self.game.setSquare(self.player_type, (x,y))
             self.first_move = False
@@ -74,12 +74,12 @@ class PerfectAi(Ai):
         (x,y) = (-1,-1)
         
         for row in range(self.game.size):
-            square = self.game.matrix[row][last_move[1]]
-            if square != empty or square != player_type:
+            square = self.game.matrix[row][self.game.last_move[1]]
+            if square != empty or square != self.player_type:
                 count += 1
             if square == empty:
-                (x,y) = (row,last_move[1])
-        if count == 2 and (xx,y) != (-1,-1):
+                (x,y) = (row,self.game.last_move[1])
+        if count == 2 and (x,y) != (-1,-1):
             self.game.setSquare(self.player_type, (x,y))
             self.first_move = False
             return True
@@ -87,10 +87,10 @@ class PerfectAi(Ai):
         count = 0
         (x,y) = (-1,-1)
         
-        if last_move[0] == last_move[1]:
+        if self.game.last_move[0] == self.game.last_move[1]:
             for d in range(self.game.size):
                 square = self.game.matrix[d][d]
-                if square != empty or square != player_type:
+                if square != empty or square != self.player_type:
                     count += 1
                 if square == empty:
                     (x,y) = (d,d)
