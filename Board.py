@@ -15,7 +15,7 @@ class Board:
         self.last_piece = piece
         
     def checkState(self):
-        return self.checkWin() or self checkDraw()
+        return self.checkWin() or self.checkDraw()
     
     def checkWin(self):
         win = True
