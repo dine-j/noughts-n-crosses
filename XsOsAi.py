@@ -67,7 +67,7 @@ class PerfectAi(Ai):
                 count += 1
             if square == empty:
                 (x,y) = (self.game.last_move[0],col)
-        if count == 2 and (x,y) != (-1,-1):
+        if self.playable(count, (x,y)):
             self.game.setSquare(self.player_type, (x,y))
             self.first_move = False
             return True
@@ -81,7 +81,7 @@ class PerfectAi(Ai):
                 count += 1
             if square == empty:
                 (x,y) = (row,self.game.last_move[1])
-        if count == 2 and (x,y) != (-1,-1):
+        if self.playable(count, (x,y)):
             self.game.setSquare(self.player_type, (x,y))
             self.first_move = False
             return True
@@ -97,7 +97,7 @@ class PerfectAi(Ai):
             if square == empty:
                 (x,y) = (d,d)
                     
-        if count == 2 and (x,y) != (-1,-1):
+        if self.playable(count, (x,y)):
             self.game.setSquare(self.player_type, (x,y))
             self.first_move = False
             return True
@@ -117,7 +117,7 @@ class PerfectAi(Ai):
             x -= 1
             y += 1
         
-        if count == 2 and (x,y) != (-1,-1):
+        if self.playable(count, (x,y)):
             self.game.setSquare(self.player_type, (x,y))
             self.first_move = False
             return True
@@ -139,7 +139,7 @@ class PerfectAi(Ai):
                     (x,y) = (row,col)
     
             print count
-            if count == 2 and (x,y) != (-1,-1):
+            if self.playable(count, (x,y)):
                 self.game.setSquare(self.player_type, (x,y))
                 self.first_move = False
                 return True
@@ -155,7 +155,7 @@ class PerfectAi(Ai):
                 if square == empty:
                     (x,y) = (row,col)
                     
-            if count == 2 and (x,y) != (-1,-1):
+            if self.playable(count, (x,y)):
                 self.game.setSquare(self.player_type, (x,y))
                 self.first_move = False
                 return True
@@ -171,7 +171,7 @@ class PerfectAi(Ai):
             if square == empty:
                 (x,y) = (d,d)
                     
-        if count == 2 and (x,y) != (-1,-1):
+        if self.playable(count, (x,y)):
             self.game.setSquare(self.player_type, (x,y))
             self.first_move = False
             return True
@@ -191,7 +191,7 @@ class PerfectAi(Ai):
             row -= 1
             col += 1
         
-        if count == 2 and (x,y) != (-1,-1):
+        if self.playable(count, (x,y)):
             self.game.setSquare(self.player_type, (x,y))
             self.first_move = False
             return True
@@ -199,7 +199,7 @@ class PerfectAi(Ai):
         return False
     
     def playCenter(self):
-        if self.player_type == 'x' and self.first_move:
+        if self.player_type == 'o' and self.first_move:
             self.game.setSquare(self.player_type, self.game.center)
             self.first_move = False
             return True
@@ -235,6 +235,9 @@ class PerfectAi(Ai):
             self.game.setSquare(self.player_type, (2,1))
         if self.game.isEmpty((1,2)):
             self.game.setSquare(self.player_type, (1,2))
+            
+    def playable(self, count, position):
+        return count == 2 and position[0] != -1 and position[1] != -1
         
         
         

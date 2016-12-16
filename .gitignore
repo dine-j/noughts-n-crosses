@@ -1,1 +1,6 @@
+# Compiler files
+
 *.pyc
+
+# IDE files
+*.py.kate-swp
