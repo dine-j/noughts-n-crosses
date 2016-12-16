@@ -7,6 +7,7 @@ class Board:
         self.last_move = (-1, -1)
         self.last_piece = ' '
         self.size = 3
+        self.center = (1,1)
     
     def setSquare(self, piece, (x, y)):
         self.matrix[x][y] = piece
@@ -14,6 +15,9 @@ class Board:
         self.last_piece = piece
         
     def checkState(self):
+        return self.checkWin() or self checkDraw()
+    
+    def checkWin(self):
         win = True
         for col in range(self.size):
             if self.matrix[self.last_move[0]][col] != self.last_piece:
@@ -34,7 +38,16 @@ class Board:
                     
         if self.checkDiagonal():
             return True
+        
         return False
+    
+    def checkDraw(self):
+        count = 0
+        for x in range(self.size):
+            for y in range(self.size):
+                if self.matrix[x][y] != ' ':
+                    count += 1
+        return count == 9
     
     def checkDiagonal(self):
         win = True
