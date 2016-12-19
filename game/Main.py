@@ -25,14 +25,14 @@ def main():
 
     while True:
         player_move = (input("\nx? "), input("\ny? "))
-        game.setSquare(player, player_move)
+        game.set_square(player, player_move)
         print game
-        if game.checkState():
+        if game.check_state():
             break
         ai.play()
         print game
         print game.last_move
-        if game.checkState():
+        if game.check_state():
             break
 
     print("The end")

@@ -8,13 +8,13 @@ def main():
                        [' ', ' ', 'x'] ]
     game.last_piece = 'x'
     game.last_move = (0,0)
-    assert(game.checkState() == True)
+    assert(game.check_state() == True)
     
     game.last_move = (1,1)
-    assert(game.checkState() == True)
+    assert(game.check_state() == True)
     
     game.last_move = (2,2)
-    assert(game.checkState() == True)
+    assert(game.check_state() == True)
     
     
     game.matrix = [ ['o', ' ', ' '],
@@ -22,13 +22,13 @@ def main():
                        [' ', ' ', 'o'] ]
     game.last_piece = 'o'
     game.last_move = (0,0)
-    assert(game.checkState() == True)
+    assert(game.check_state() == True)
     
     game.last_move = (1,1)
-    assert(game.checkState() == True)
+    assert(game.check_state() == True)
     
     game.last_move = (2,2)
-    assert(game.checkState() == True)
+    assert(game.check_state() == True)
     
     
     game.matrix = [ [' ', ' ', 'x'],
@@ -36,13 +36,13 @@ def main():
                        ['x', ' ', ' '] ]
     game.last_piece = 'x'
     game.last_move = (2,0)
-    assert(game.checkState() == True)
+    assert(game.check_state() == True)
     
     game.last_move = (1,1)
-    assert(game.checkState() == True)
+    assert(game.check_state() == True)
     
     game.last_move = (0,2)
-    assert(game.checkState() == True)
+    assert(game.check_state() == True)
     
     
     game.matrix = [ [' ', ' ', 'o'],
@@ -50,13 +50,13 @@ def main():
                        ['o', ' ', ' '] ]
     game.last_piece = 'x'
     game.last_move = (2,0)
-    assert(game.checkState() == True)
+    assert(game.check_state() == True)
     
     game.last_move = (1,1)
-    assert(game.checkState() == True)
+    assert(game.check_state() == True)
     
     game.last_move = (0,2)
-    assert(game.checkState() == True)
+    assert(game.check_state() == True)
     
     
 if __name__ == "__main__": main()

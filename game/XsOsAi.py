@@ -20,10 +20,10 @@ class RandomAi(Ai):
     def play(self):
         x = randint(0, 2)
         y = randint(0, 2)
-        while not self.game.isEmpty((x, y)):
+        while not self.game.is_empty((x, y)):
             x = randint(0, 2)
             y = randint(0, 2)
-        self.game.setSquare(self.player_type, (x, y))
+        self.game.set_square(self.player_type, (x, y))
 
 
 class PerfectAi(Ai):
@@ -75,7 +75,7 @@ class PerfectAi(Ai):
                     (x, y) = (row, col)
 
             if self.playable(win_count, (x, y)):
-                self.game.setSquare(self.player_type, (x, y))
+                self.game.set_square(self.player_type, (x, y))
                 self.first_move = False
                 return True
 
@@ -97,7 +97,7 @@ class PerfectAi(Ai):
                     (x, y) = (row, col)
 
             if self.playable(win_count, (x, y)):
-                self.game.setSquare(self.player_type, (x, y))
+                self.game.set_square(self.player_type, (x, y))
                 self.first_move = False
                 return True
 
@@ -119,7 +119,7 @@ class PerfectAi(Ai):
                 (x, y) = (d, d)
 
         if self.playable(win_count, (x, y)):
-            self.game.setSquare(self.player_type, (x, y))
+            self.game.set_square(self.player_type, (x, y))
             self.first_move = False
             return True
 
@@ -144,7 +144,7 @@ class PerfectAi(Ai):
             y += 1
 
         if self.playable(win_count, (x, y)):
-            self.game.setSquare(self.player_type, (x, y))
+            self.game.set_square(self.player_type, (x, y))
             self.first_move = False
             return True
 
@@ -152,7 +152,7 @@ class PerfectAi(Ai):
             blocks.append((x, y))
 
         if len(blocks) != 0:
-            self.game.setSquare(self.player_type, blocks.pop())
+            self.game.set_square(self.player_type, blocks.pop())
             self.first_move = False
             return True
 
@@ -172,7 +172,7 @@ class PerfectAi(Ai):
                     (x, y) = (row, col)
 
             if self.playable(count, (x, y)):
-                self.game.setSquare(self.player_type, (x, y))
+                self.game.set_square(self.player_type, (x, y))
                 self.first_move = False
                 return True
 
@@ -188,7 +188,7 @@ class PerfectAi(Ai):
                     (x, y) = (row, col)
 
             if self.playable(count, (x, y)):
-                self.game.setSquare(self.player_type, (x, y))
+                self.game.set_square(self.player_type, (x, y))
                 self.first_move = False
                 return True
 
@@ -204,7 +204,7 @@ class PerfectAi(Ai):
                 (x, y) = (d, d)
 
         if self.playable(count, (x, y)):
-            self.game.setSquare(self.player_type, (x, y))
+            self.game.set_square(self.player_type, (x, y))
             self.first_move = False
             return True
 
@@ -223,7 +223,7 @@ class PerfectAi(Ai):
             y += 1
 
         if self.playable(count, (x, y)):
-            self.game.setSquare(self.player_type, (x, y))
+            self.game.set_square(self.player_type, (x, y))
             self.first_move = False
             return True
 
@@ -243,7 +243,7 @@ class PerfectAi(Ai):
                     (x, y) = (row, col)
 
             if self.playable(count, (x, y)):
-                self.game.setSquare(self.player_type, (x, y))
+                self.game.set_square(self.player_type, (x, y))
                 self.first_move = False
                 return True
 
@@ -259,7 +259,7 @@ class PerfectAi(Ai):
                     (x, y) = (row, col)
 
             if self.playable(count, (x, y)):
-                self.game.setSquare(self.player_type, (x, y))
+                self.game.set_square(self.player_type, (x, y))
                 self.first_move = False
                 return True
 
@@ -275,7 +275,7 @@ class PerfectAi(Ai):
                 (x, y) = (d, d)
 
         if self.playable(count, (x, y)):
-            self.game.setSquare(self.player_type, (x, y))
+            self.game.set_square(self.player_type, (x, y))
             self.first_move = False
             return True
 
@@ -295,15 +295,15 @@ class PerfectAi(Ai):
             col += 1
 
         if self.playable(count, (x, y)):
-            self.game.setSquare(self.player_type, (x, y))
+            self.game.set_square(self.player_type, (x, y))
             self.first_move = False
             return True
 
         return False
 
     def play_center(self):
-        if self.player_type == 'o' and self.first_move and self.game.isEmpty(self.game.center):
-            self.game.setSquare(self.player_type, self.game.center)
+        if self.player_type == 'o' and self.first_move and self.game.is_empty(self.game.center):
+            self.game.set_square(self.player_type, self.game.center)
             self.first_move = False
             return True
         return False
@@ -312,15 +312,15 @@ class PerfectAi(Ai):
         (y, x) = self.game.last_move
         played = False
 
-        if self.game.isCorner(self.game.last_move):
-            if x != y and self.game.isEmpty((x,y)):
-                self.game.setSquare(self.player_type, (x, y))
+        if self.game.is_corner(self.game.last_move):
+            if x != y and self.game.is_empty((x, y)):
+                self.game.set_square(self.player_type, (x, y))
                 played = True
-            elif x == 0 and self.game.isEmpty((self.game.size - 1, self.game.size - 1)):
-                self.game.setSquare(self.player_type, (self.game.size - 1, self.game.size - 1))
+            elif x == 0 and self.game.is_empty((self.game.size - 1, self.game.size - 1)):
+                self.game.set_square(self.player_type, (self.game.size - 1, self.game.size - 1))
                 played = True
-            elif self.game.isEmpty((0, 0)):
-                self.game.setSquare(self.player_type, (0, 0))
+            elif self.game.is_empty((0, 0)):
+                self.game.set_square(self.player_type, (0, 0))
                 played = True
         return played
 
@@ -329,20 +329,20 @@ class PerfectAi(Ai):
                    (self.game.size - 1, self.game.size - 1, 0)]
 
         for position in corners:
-            if self.game.isEmpty(position):
-                self.game.setSquare(self.player_type, position)
+            if self.game.is_empty(position):
+                self.game.set_square(self.player_type, position)
                 return True
         return False
 
     def play_empty_side(self):
-        if self.game.isEmpty((0, 1)):
-            self.game.setSquare(self.player_type, (0, 1))
-        if self.game.isEmpty((1, 0)):
-            self.game.setSquare(self.player_type, (1, 0))
-        if self.game.isEmpty((2, 1)):
-            self.game.setSquare(self.player_type, (2, 1))
-        if self.game.isEmpty((1, 2)):
-            self.game.setSquare(self.player_type, (1, 2))
+        if self.game.is_empty((0, 1)):
+            self.game.set_square(self.player_type, (0, 1))
+        if self.game.is_empty((1, 0)):
+            self.game.set_square(self.player_type, (1, 0))
+        if self.game.is_empty((2, 1)):
+            self.game.set_square(self.player_type, (2, 1))
+        if self.game.is_empty((1, 2)):
+            self.game.set_square(self.player_type, (1, 2))
 
     @staticmethod
     def playable(count, position):
