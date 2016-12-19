@@ -10,45 +10,8 @@ class Ai:
         self.player_type = player_type
 
     @abstractmethod
-    def play(self): pass
-
-
-class RandomAi(Ai):
-    def __init__(self, game, player_type):
-        super(RandomAi, self).__init__(game, player_type)
-
     def play(self):
-        x = randint(0, 2)
-        y = randint(0, 2)
-        while not self.game.is_empty((x, y)):
-            x = randint(0, 2)
-            y = randint(0, 2)
-        self.game.set_square(self.player_type, (x, y))
-
-
-class PerfectAi(Ai):
-    def __init__(self, game, player_type):
-        super(PerfectAi, self).__init__(game, player_type)
-        self.first_move = True
-
-    def play(self):
-        if self.fill_third_space():
-            print("fill third space")
-            return
-
-        if self.play_center():
-            print("playcenter")
-            return
-
-        if self.play_opposite_corner():
-            print("playopposite")
-            return
-
-        if self.play_corner():
-            print("playcorner")
-            return
-
-        self.play_empty_side()
+        pass
 
     def fill_third_space(self):
         empty = ' '
@@ -69,7 +32,6 @@ class PerfectAi(Ai):
 
             if self.playable(win_count, (x, y)):
                 self.game.set_square(self.player_type, (x, y))
-                self.first_move = False
                 return True
 
             if self.playable(block_count, (x, y)):
@@ -91,7 +53,6 @@ class PerfectAi(Ai):
 
             if self.playable(win_count, (x, y)):
                 self.game.set_square(self.player_type, (x, y))
-                self.first_move = False
                 return True
 
             if self.playable(block_count, (x, y)):
@@ -112,8 +73,6 @@ class PerfectAi(Ai):
                 (x, y) = (d, d)
 
         if self.playable(win_count, (x, y)):
-            self.game.set_square(self.player_type, (x, y))
-            self.first_move = False
             return True
 
         if self.playable(block_count, (x, y)):
@@ -138,7 +97,6 @@ class PerfectAi(Ai):
 
         if self.playable(win_count, (x, y)):
             self.game.set_square(self.player_type, (x, y))
-            self.first_move = False
             return True
 
         if self.playable(block_count, (x, y)):
@@ -146,10 +104,73 @@ class PerfectAi(Ai):
 
         if len(blocks) != 0:
             self.game.set_square(self.player_type, blocks.pop())
-            self.first_move = False
             return True
 
         return False
+
+    @staticmethod
+    def playable(count, position):
+        return count == 2 and position[0] != -1 and position[1] != -1
+
+    def is_winning_condition(self, square):
+        return square == self.player_type
+
+    def is_blocking_condition(self, square):
+        return square != ' ' and square != self.player_type
+
+
+class RandomAi(Ai):
+    def __init__(self, game, player_type):
+        super(RandomAi, self).__init__(game, player_type)
+
+    def play(self):
+        x = randint(0, 2)
+        y = randint(0, 2)
+        while not self.game.is_empty((x, y)):
+            x = randint(0, 2)
+            y = randint(0, 2)
+        self.game.set_square(self.player_type, (x, y))
+
+
+class AverageAi(Ai):
+    def __init__(self, game, player_type):
+        super(AverageAi, self).__init__(game, player_type)
+
+    def play(self):
+        if self.fill_third_space():
+            return
+        x = randint(0, 2)
+        y = randint(0, 2)
+        while not self.game.is_empty((x, y)):
+            x = randint(0, 2)
+            y = randint(0, 2)
+        self.game.set_square(self.player_type, (x, y))
+
+
+class PerfectAi(Ai):
+    def __init__(self, game, player_type):
+        super(PerfectAi, self).__init__(game, player_type)
+        self.first_move = True
+
+    def play(self):
+        if self.fill_third_space():
+            self.first_move = False
+            print("fill third space")
+            return
+
+        if self.play_center():
+            print("playcenter")
+            return
+
+        if self.play_opposite_corner():
+            print("playopposite")
+            return
+
+        if self.play_corner():
+            print("playcorner")
+            return
+
+        self.play_empty_side()
 
     def play_center(self):
         if self.player_type == 'o' and self.first_move and self.game.is_empty(self.game.center):
@@ -193,13 +214,3 @@ class PerfectAi(Ai):
             self.game.set_square(self.player_type, (2, 1))
         if self.game.is_empty((1, 2)):
             self.game.set_square(self.player_type, (1, 2))
-
-    @staticmethod
-    def playable(count, position):
-        return count == 2 and position[0] != -1 and position[1] != -1
-
-    def is_winning_condition(self, square):
-        return square == self.player_type
-
-    def is_blocking_condition(self, square):
-        return square != ' ' and square != self.player_type
