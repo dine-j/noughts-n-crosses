@@ -61,33 +61,37 @@ class PerfectAi(Ai):
         count = 0
         (x,y) = (-1,-1)
         
-        for col in range(self.game.size):
-            square = self.game.matrix[self.game.last_move[0]][col]
-            if square == self.player_type:
-                count += 1
-            if square == empty:
-                (x,y) = (self.game.last_move[0],col)
-        if self.playable(count, (x,y)):
-            self.game.setSquare(self.player_type, (x,y))
-            self.first_move = False
-            return True
-        
-        count = 0
-        (x,y) = (-1,-1)
-        
         for row in range(self.game.size):
-            square = self.game.matrix[row][self.game.last_move[1]]
-            if square == self.player_type:
-                count += 1
-            if square == empty:
-                (x,y) = (row,self.game.last_move[1])
-        if self.playable(count, (x,y)):
-            self.game.setSquare(self.player_type, (x,y))
-            self.first_move = False
-            return True
-                
-        count = 0
-        (x,y) = (-1,-1)
+            for col in range(self.game.size):
+                square = self.game.matrix[row][col]
+                if square == self.player_type:
+                    count += 1
+                if square == empty:
+                    (x,y) = (row,col)
+    
+            if self.playable(count, (x,y)):
+                self.game.setSquare(self.player_type, (x,y))
+                self.first_move = False
+                return True
+            
+            count = 0
+            (x,y) = (-1,-1)
+        
+        for col in range(self.game.size):
+            for row in range(self.game.size):
+                square = self.game.matrix[row][col]
+                if square == self.player_type:
+                    count += 1
+                if square == empty:
+                    (x,y) = (row,col)
+                    
+            if self.playable(count, (x,y)):
+                self.game.setSquare(self.player_type, (x,y))
+                self.first_move = False
+                return True
+        
+            count = 0
+            (x,y) = (-1,-1)
         
         # top-left to bottom-right
         for d in range(self.game.size):
@@ -132,13 +136,11 @@ class PerfectAi(Ai):
         for row in range(self.game.size):
             for col in range(self.game.size):
                 square = self.game.matrix[row][col]
-                print square
                 if square != empty and square != self.player_type:
                     count += 1
                 if square == empty:
                     (x,y) = (row,col)
     
-            print count
             if self.playable(count, (x,y)):
                 self.game.setSquare(self.player_type, (x,y))
                 self.first_move = False
@@ -222,7 +224,7 @@ class PerfectAi(Ai):
         
         for position in corners:
             if self.game.isEmpty((position[0], position[1])):
-                self.game.setSquare(self.player_type, position)
+                self.game.setSquare(self.player_type, (position[0], position[1]))
                 return True
         return False
     
